@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from './Button';
+import { theme } from '../../../theme/mainTheme';
 
 export default {
     title: 'Components/Button',
@@ -10,9 +11,9 @@ export default {
             control: {
                 type: 'select',
                 options: {
-                    Primary: 'hsl(49, 100%, 58%)',
-                    Secondary: 'hsl(196, 83%, 75%)',
-                    Tertiary: 'hsl(106, 47%, 64%)'
+                    Primary: theme.primary,
+                    Secondary: theme.secondary,
+                    Tertiary: theme.tertiary
                 }
             }
         }
