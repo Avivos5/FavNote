@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
@@ -10,7 +11,6 @@ const StyledWrapper = styled.div`
     /* width: 500px; // do usunięcia */
     box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
     border-radius: 10px;
-    background-color: pink;
     overflow: hidden;
     display: grid;
     grid-template-rows: 0.25fr 1fr;
@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
 
 const InnerWrapper = styled.div`
     padding: 17px 30px;
-    background-color: ${({ yellow, theme }) => (yellow ? theme.primary : 'white')};
+    background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
 
     ${({ flex }) =>
         flex &&
@@ -39,10 +39,10 @@ const DateInfo = styled(Paragraph)`
     font-weight: ${({ theme }) => theme.bold};
 `;
 
-const Card = () => {
+const Card = ({ cardType }) => {
     return (
         <StyledWrapper>
-            <InnerWrapper yellow>
+            <InnerWrapper activeColor={cardType}>
                 <StyledHeading>Hello world</StyledHeading>
                 <DateInfo>5 days</DateInfo>
             </InnerWrapper>
@@ -59,3 +59,11 @@ const Card = () => {
 };
 
 export default Card;
+
+Card.propTypes = {
+    cardType: PropTypes.oneOf(['note', 'twitter', 'article'])
+};
+
+Card.deafultProps = {
+    cardType: 'note'
+};
