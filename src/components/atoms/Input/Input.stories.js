@@ -16,5 +16,6 @@ Default.args = {
 
 export const Search = Template.bind({});
 Search.args = {
-    placeholder: 'search'
+    placeholder: 'search',
+    search: true
 };
