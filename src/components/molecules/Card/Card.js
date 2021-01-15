@@ -61,7 +61,7 @@ const StyledLinkButton = styled.a`
     height: 47px;
     border-radius: 50%;
     background: white url(${linkImg}) no-repeat;
-    background-size: 50%;
+    background-size: 60%;
     background-position: 50% 50%;
     position: absolute;
     right: 25px;
