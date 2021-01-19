@@ -1,10 +1,16 @@
 import React from 'react';
 import UserPageTemplate from 'templates/UserPageTemplate';
+import Card from 'components/molecules/Card/Card';
 
 const Notes = () => {
     return (
         <UserPageTemplate pageType="note">
-            <h1>Notes View</h1>
+            <Card cardType="note" />
+            <Card cardType="note" />
+            <Card cardType="note" />
+            <Card cardType="note" />
+            <Card cardType="note" />
+            <Card cardType="note" />
         </UserPageTemplate>
     );
 };
