@@ -18,7 +18,7 @@ const Background = styled.div`
 `;
 
 export default {
-    title: 'Components/ButtonIcon',
+    title: 'Atoms/ButtonIcon',
     component: ButtonIcon,
     decorators: [
         (Story) => (

@@ -11,8 +11,8 @@ const MainTemplate = ({ children }) => (
     </>
 );
 
-export default MainTemplate;
-
 MainTemplate.propTypes = {
     children: PropTypes.element.isRequired
 };
+
+export default MainTemplate;

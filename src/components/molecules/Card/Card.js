@@ -93,8 +93,6 @@ const Card = ({ cardType }) => {
     );
 };
 
-export default Card;
-
 Card.propTypes = {
     cardType: PropTypes.oneOf(['note', 'twitter', 'article'])
 };
@@ -102,3 +100,5 @@ Card.propTypes = {
 Card.deafultProps = {
     cardType: 'note'
 };
+
+export default Card;
