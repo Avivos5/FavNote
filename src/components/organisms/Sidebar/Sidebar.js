@@ -17,7 +17,7 @@ const StyledWrapper = styled.div`
     height: 100vh;
     width: 150px;
     background-color: ${({ theme, activeColor }) =>
-        activeColor ? theme[activeColor] : theme.note};
+        activeColor ? theme[activeColor] : theme.notes};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -73,11 +73,11 @@ const Sidebar = ({ pageType }) => {
 };
 
 Sidebar.propTypes = {
-    pageType: PropTypes.oneOf(['note', 'twitter', 'article'])
+    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles'])
 };
 
 Sidebar.deafultProps = {
-    pageType: 'note'
+    pageType: 'notes'
 };
 
 export default Sidebar;

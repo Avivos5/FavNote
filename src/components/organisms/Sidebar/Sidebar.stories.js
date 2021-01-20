@@ -19,13 +19,13 @@ const Template = (args) => <Sidebar {...args} />;
 
 export const Note = Template.bind({});
 Note.args = {
-    pageType: 'note'
+    pageType: 'notes'
 };
 export const Twitter = Template.bind({});
 Twitter.args = {
-    pageType: 'twitter'
+    pageType: 'twitters'
 };
 export const Article = Template.bind({});
 Article.args = {
-    pageType: 'article'
+    pageType: 'articles'
 };

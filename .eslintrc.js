@@ -26,6 +26,7 @@ module.exports = {
     ],
     rules: {
         'prettier/prettier': ['error', {}, { usePrettierrc: true }], // Use our .prettierrc file as source
-        'react/no-unescaped-entities': 'off'
+        'react/no-unescaped-entities': 'off',
+        'react/prop-types': ['warn']
     }
 };

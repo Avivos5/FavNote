@@ -35,10 +35,10 @@ const notes = [
 
 const Notes = () => {
     return (
-        <GridTemplate pageType="note">
+        <GridTemplate pageType="notes">
             {notes.map((note) => (
                 <Card
-                    cardType="note"
+                    cardType="notes"
                     title={note.title}
                     content={note.content}
                     created={note.created}

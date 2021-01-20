@@ -39,10 +39,10 @@ const twitters = [
 
 const Twitters = () => {
     return (
-        <GridTemplate pageType="twitter">
+        <GridTemplate pageType="twitters">
             {twitters.map((twitter) => (
                 <Card
-                    cardType="twitter"
+                    cardType="twitters"
                     title={twitter.title}
                     content={twitter.content}
                     created={twitter.created}

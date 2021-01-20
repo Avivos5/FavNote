@@ -39,10 +39,10 @@ const articles = [
 
 const Articles = () => {
     return (
-        <GridTemplate pageType="article">
+        <GridTemplate pageType="articles">
             {articles.map((article) => (
                 <Card
-                    cardType="article"
+                    cardType="articles"
                     title={article.title}
                     content={article.content}
                     created={article.created}

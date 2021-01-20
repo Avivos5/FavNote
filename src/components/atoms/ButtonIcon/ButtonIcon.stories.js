@@ -9,7 +9,7 @@ import plusIcon from '../../../assets/icons/plus.svg';
 import twitterIcon from '../../../assets/icons/twitter.svg';
 
 const Background = styled.div`
-    background-color: ${({ theme }) => theme.note};
+    background-color: ${({ theme }) => theme.notes};
     display: flex;
     justify-content: center;
     align-items: center;

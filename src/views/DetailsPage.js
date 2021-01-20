@@ -1,7 +1,8 @@
 import React from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
+import { routes } from 'routes/index';
 
-const DetailsPage = () => {
+const DetailsPage = ({ match }) => {
     return (
         <>
             <DetailsTemplate>
@@ -13,6 +14,11 @@ const DetailsPage = () => {
                         tempore quos ipsam earum hic sapiente? Dolore iure enim quia aliquam amet
                         ipsa.
                     </p>
+                    <p>{`jesteśmy na note: ${match.path === routes.note}`}</p>
+                    <p>{`jesteśmy na twitter: ${match.path === routes.twitter}`}</p>
+                    <p>{`jesteśmy na article: ${match.path === routes.article}`}</p>
+
+                    {console.log(match)}
                 </>
             </DetailsTemplate>
         </>

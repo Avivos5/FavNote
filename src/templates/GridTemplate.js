@@ -22,6 +22,10 @@ const StyledPageHeader = styled.div``;
 
 const StyledHeading = styled(Heading)`
     margin: 25px 0 0 0;
+
+    ::first-letter {
+        text-transform: uppercase;
+    }
 `;
 const StyledParagraph = styled(Paragraph)`
     margin: 0;
@@ -35,7 +39,7 @@ const GridTemplate = ({ children, pageType }) => (
                 <StyledPageHeader>
                     <Input search placeholder="search" />
                     <StyledHeading big as="h1">
-                        Notes
+                        {pageType}
                     </StyledHeading>
                     <StyledParagraph>5 notes</StyledParagraph>
                 </StyledPageHeader>
@@ -47,11 +51,11 @@ const GridTemplate = ({ children, pageType }) => (
 
 GridTemplate.propTypes = {
     children: PropTypes.array.isRequired,
-    pageType: PropTypes.oneOf(['note', 'twitter', 'article'])
+    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles'])
 };
 
 GridTemplate.deafultProps = {
-    pageType: 'note'
+    pageType: 'notes'
 };
 
 export default GridTemplate;
