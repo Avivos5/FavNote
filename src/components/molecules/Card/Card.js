@@ -53,10 +53,8 @@ const StyledAvatar = styled.div`
     position: absolute;
     right: 25px;
     top: 25px;
-    background-color: red;
     background-image: url('https://turbologo.com/articles/wp-content/uploads/2019/07/twitter-bird-logo.png.webp');
     background-repeat: no-repeat;
-    /* background-size: 150%; */
     background-size: cover;
     background-position: 50% 50%;
 `;
@@ -76,21 +74,17 @@ const StyledLinkButton = styled.a`
     cursor: pointer;
 `;
 
-const Card = ({ cardType }) => {
+const Card = ({ cardType, title, created, content, articleUrl }) => {
     return (
         <StyledWrapper>
             <InnerWrapper activeColor={cardType}>
-                <StyledHeading>Hello world</StyledHeading>
-                <DateInfo>5 days</DateInfo>
+                <StyledHeading>{title}</StyledHeading>
+                <DateInfo>{created}</DateInfo>
                 {cardType === 'twitter' && <StyledAvatar />}
-                {cardType === 'article' && <StyledLinkButton />}
+                {cardType === 'article' && <StyledLinkButton href={articleUrl} />}
             </InnerWrapper>
             <InnerWrapper flex>
-                <Paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam ex ullam unde
-                    labore quam impedit eos. Voluptatum ullam repudiandae blanditiis quasi, sint
-                    eligendi quod accusantium itaque beatae natus non aspernatur.
-                </Paragraph>
+                <Paragraph>{content}</Paragraph>
                 <Button secondary>REMOVE</Button>
             </InnerWrapper>
         </StyledWrapper>
@@ -98,11 +92,16 @@ const Card = ({ cardType }) => {
 };
 
 Card.propTypes = {
-    cardType: PropTypes.oneOf(['note', 'twitter', 'article'])
+    cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+    title: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    articleUrl: PropTypes.string
 };
 
 Card.deafultProps = {
-    cardType: 'note'
+    cardType: 'note',
+    articleUrl: null
 };
 
 export default Card;
