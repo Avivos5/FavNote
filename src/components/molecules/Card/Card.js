@@ -45,14 +45,20 @@ const DateInfo = styled(Paragraph)`
     font-weight: ${({ theme }) => theme.bold};
 `;
 
-const StyledAvatar = styled.img`
-    width: 86px;
+const StyledAvatar = styled.div`
+    width: 85px;
     height: 85px;
     border: 6px solid ${({ theme }) => theme.twitter};
     border-radius: 50%;
     position: absolute;
     right: 25px;
     top: 25px;
+    background-color: red;
+    background-image: url('https://turbologo.com/articles/wp-content/uploads/2019/07/twitter-bird-logo.png.webp');
+    background-repeat: no-repeat;
+    /* background-size: 150%; */
+    background-size: cover;
+    background-position: 50% 50%;
 `;
 
 const StyledLinkButton = styled.a`
@@ -76,9 +82,7 @@ const Card = ({ cardType }) => {
             <InnerWrapper activeColor={cardType}>
                 <StyledHeading>Hello world</StyledHeading>
                 <DateInfo>5 days</DateInfo>
-                {cardType === 'twitter' && (
-                    <StyledAvatar src="https://unavatar.now.sh/twitter/hello_roman" />
-                )}
+                {cardType === 'twitter' && <StyledAvatar />}
                 {cardType === 'article' && <StyledLinkButton />}
             </InnerWrapper>
             <InnerWrapper flex>
