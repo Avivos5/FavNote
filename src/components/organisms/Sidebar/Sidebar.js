@@ -16,7 +16,8 @@ const StyledWrapper = styled.div`
     top: 0;
     height: 100vh;
     width: 150px;
-    background-color: ${({ theme, activeColor }) => theme[activeColor]};
+    background-color: ${({ theme, activeColor }) =>
+        activeColor ? theme[activeColor] : theme.note};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,7 +48,7 @@ const Sidebar = ({ pageType }) => {
             <StyledLogo as={Link} to="/" icon={logoIcon}></StyledLogo>
             <StyledLinksWrap>
                 <li>
-                    <ButtonIcon as={NavLink} exact to="/" icon={penIcon} activeclass="active" />
+                    <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeclass="active" />
                 </li>
                 <li>
                     <ButtonIcon
