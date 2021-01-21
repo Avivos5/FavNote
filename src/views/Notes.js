@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 
-const notes = [
+export const notes = [
     {
         id: 1,
         title: 'Wake me up when Vue ends',
@@ -39,6 +39,7 @@ const Notes = () => {
             {notes.map((note) => (
                 <Card
                     cardType="notes"
+                    id={note.id}
                     title={note.title}
                     content={note.content}
                     created={note.created}

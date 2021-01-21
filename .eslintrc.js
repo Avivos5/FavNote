@@ -7,6 +7,7 @@ module.exports = {
             jsx: true // Enable JSX since we're using React
         }
     },
+    parser: 'babel-eslint',
     settings: {
         react: {
             version: 'detect' // Automatically detect the react version

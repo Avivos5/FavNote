@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 
-const twitters = [
+export const twitters = [
     {
         id: 1,
         title: 'Hello Roman',
@@ -43,6 +43,7 @@ const Twitters = () => {
             {twitters.map((twitter) => (
                 <Card
                     cardType="twitters"
+                    id={twitter.id}
                     title={twitter.title}
                     content={twitter.content}
                     created={twitter.created}

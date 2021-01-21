@@ -2,7 +2,7 @@ import React from 'react';
 import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 
-const articles = [
+export const articles = [
     {
         id: 1,
         title: 'React on my mind',
@@ -43,6 +43,7 @@ const Articles = () => {
             {articles.map((article) => (
                 <Card
                     cardType="articles"
+                    id={article.id}
                     title={article.title}
                     content={article.content}
                     created={article.created}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
@@ -74,29 +75,45 @@ const StyledLinkButton = styled.a`
     cursor: pointer;
 `;
 
-const Card = ({ cardType, title, created, content, articleUrl }) => {
-    return (
-        <StyledWrapper>
-            <InnerWrapper activeColor={cardType}>
-                <StyledHeading>{title}</StyledHeading>
-                <DateInfo>{created}</DateInfo>
-                {cardType === 'twitters' && <StyledAvatar />}
-                {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
-            </InnerWrapper>
-            <InnerWrapper flex>
-                <Paragraph>{content}</Paragraph>
-                <Button secondary>REMOVE</Button>
-            </InnerWrapper>
-        </StyledWrapper>
-    );
-};
+class Card extends React.Component {
+    state = {
+        redirect: false
+    };
+
+    handleCardClick = () => {
+        this.setState({ redirect: true });
+    };
+
+    render() {
+        const { id, cardType, title, created, content, articleUrl } = this.props;
+
+        if (this.state.redirect) {
+            return <Redirect to={`${cardType}/${id}`} />;
+        }
+        return (
+            <StyledWrapper onClick={() => this.handleCardClick()}>
+                <InnerWrapper activeColor={cardType}>
+                    <StyledHeading>{title}</StyledHeading>
+                    <DateInfo>{created}</DateInfo>
+                    {cardType === 'twitters' && <StyledAvatar />}
+                    {cardType === 'articles' && <StyledLinkButton href={articleUrl} />}
+                </InnerWrapper>
+                <InnerWrapper flex>
+                    <Paragraph>{content}</Paragraph>
+                    <Button secondary>REMOVE</Button>
+                </InnerWrapper>
+            </StyledWrapper>
+        );
+    }
+}
 
 Card.propTypes = {
     cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
     title: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    articleUrl: PropTypes.string
+    articleUrl: PropTypes.string,
+    id: PropTypes.number.isRequired
 };
 
 Card.deafultProps = {
