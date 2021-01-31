@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DetailsTemplate from 'templates/DetailsTemplate';
 
 const DetailsPage = ({ match }) => {
@@ -26,6 +27,10 @@ const DetailsPage = ({ match }) => {
             />
         </>
     );
+};
+
+DetailsPage.propTypes = {
+    match: PropTypes.object
 };
 
 export default DetailsPage;
