@@ -104,9 +104,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         case 'REMOVE_ITEM':
             return {
                 ...state,
-                [payload.itemType]: [
-                    state[payload.itemType].filter((item) => item.id !== payload.id)
-                ]
+                [payload.itemType]: state[payload.itemType].filter((item) => item.id !== payload.id)
             };
 
         default:
