@@ -1,10 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DetailsTemplate from 'templates/DetailsTemplate';
 
-const DetailsPage = ({ match }) => {
-    const pageType = match.url.split('/')[1];
-
+const DetailsPage = () => {
     const dummyArticle = {
         id: 1,
         title: 'Wake me up when Vue ends',
@@ -18,7 +15,6 @@ const DetailsPage = ({ match }) => {
     return (
         <>
             <DetailsTemplate
-                pageType={pageType}
                 title={dummyArticle.title}
                 created={dummyArticle.created}
                 content={dummyArticle.content}
@@ -27,10 +23,6 @@ const DetailsPage = ({ match }) => {
             />
         </>
     );
-};
-
-DetailsPage.propTypes = {
-    match: PropTypes.object
 };
 
 export default DetailsPage;

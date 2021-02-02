@@ -6,10 +6,9 @@ import GridTemplate from 'templates/GridTemplate';
 
 const Twitters = ({ twitters }) => {
     return (
-        <GridTemplate pageType="twitters">
+        <GridTemplate>
             {twitters.map((twitter) => (
                 <Card
-                    cardType="twitters"
                     id={twitter.id}
                     title={twitter.title}
                     content={twitter.content}

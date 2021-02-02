@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 
 import Sidebar from 'components/organisms/Sidebar/Sidebar';
 
-const UserPageTemplate = ({ children, pageType }) => (
+const UserPageTemplate = ({ children }) => (
     <>
-        <Sidebar pageType={pageType} />
+        <Sidebar />
         {children}
     </>
 );
 
 UserPageTemplate.propTypes = {
-    children: PropTypes.element.isRequired,
-    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles'])
-};
-
-UserPageTemplate.deafultProps = {
-    pageType: 'notes'
+    children: PropTypes.element.isRequired
 };
 
 export default UserPageTemplate;

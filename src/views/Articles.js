@@ -6,10 +6,9 @@ import GridTemplate from 'templates/GridTemplate';
 
 const Articles = ({ articles }) => {
     return (
-        <GridTemplate pageType="articles">
+        <GridTemplate>
             {articles.map((article) => (
                 <Card
-                    cardType="articles"
                     id={article.id}
                     title={article.title}
                     content={article.content}

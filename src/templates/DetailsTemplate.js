@@ -5,6 +5,7 @@ import UserPageTemplate from './UserPageTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
     padding: 25px 150px 25px 70px;
@@ -56,25 +57,25 @@ const StyledButton = styled(Button)`
     margin: 50px 0 0 0;
 `;
 
-const DetailsTemplate = ({ pageType, title, created, content, articleUrl, twitterName }) => {
+const DetailsTemplate = ({ title, created, content, articleUrl, twitterName, pageContext }) => {
     return (
         <>
-            <UserPageTemplate pageType={pageType}>
+            <UserPageTemplate>
                 <StyledWrapper>
                     <StyledPageHeader>
                         <StyledHeading big>{title}</StyledHeading>
                         <StyledParagraph>{created}</StyledParagraph>
                     </StyledPageHeader>
                     <Paragraph>{content}</Paragraph>
-                    {pageType === 'articles' && (
+                    {pageContext === 'articles' && (
                         <StyledLink href={articleUrl}>Open article</StyledLink>
                     )}
-                    {pageType === 'twitters' && (
+                    {pageContext === 'twitters' && (
                         <StyledImage
                             alt={twitterName}
                             src="https://turbologo.com/articles/wp-content/uploads/2019/07/twitter-bird-logo.png.webp"></StyledImage>
                     )}
-                    <StyledButton activeColor={pageType}>CLOSE / SAVE</StyledButton>
+                    <StyledButton activeColor={pageContext}>CLOSE / SAVE</StyledButton>
                 </StyledWrapper>
             </UserPageTemplate>
         </>
@@ -82,7 +83,7 @@ const DetailsTemplate = ({ pageType, title, created, content, articleUrl, twitte
 };
 
 DetailsTemplate.propTypes = {
-    pageType: PropTypes.string.isRequired,
+    pageContext: PropTypes.string.isRequired,
     title: PropTypes.string,
     created: PropTypes.string,
     content: PropTypes.string,
@@ -98,4 +99,4 @@ DetailsTemplate.defaultProps = {
     twitterName: ''
 };
 
-export default DetailsTemplate;
+export default withContext(DetailsTemplate);

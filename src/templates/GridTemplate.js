@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import withContext from 'hoc/withContext';
 
 import UserPageTemplate from 'templates/UserPageTemplate';
 import Input from 'components/atoms/Input/Input';
@@ -41,16 +42,16 @@ const StyledParagraph = styled(Paragraph)`
     font-weight: ${({ theme }) => theme.bold};
 `;
 
-const GridTemplate = ({ children, pageType }) => (
+const GridTemplate = ({ children, pageContext }) => (
     <>
-        <UserPageTemplate pageType={pageType}>
+        <UserPageTemplate>
             <StyledWrapper>
                 <StyledPageHeader>
                     <Input search placeholder="search" />
                     <StyledHeading big as="h1">
-                        {pageType}
+                        {pageContext}
                     </StyledHeading>
-                    <StyledParagraph>5 notes</StyledParagraph>
+                    <StyledParagraph>5 {pageContext}</StyledParagraph>
                 </StyledPageHeader>
                 <StyledGrid>{children}</StyledGrid>
             </StyledWrapper>
@@ -60,11 +61,11 @@ const GridTemplate = ({ children, pageType }) => (
 
 GridTemplate.propTypes = {
     children: PropTypes.array.isRequired,
-    pageType: PropTypes.oneOf(['notes', 'twitters', 'articles'])
+    pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles'])
 };
 
 GridTemplate.deafultProps = {
-    pageType: 'notes'
+    pageContext: 'notes'
 };
 
-export default GridTemplate;
+export default withContext(GridTemplate);
