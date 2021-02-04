@@ -23,6 +23,11 @@ const GlobalStyles = createGlobalStyle`
     font-size: 1.6rem;
     font-family: 'Montserrat', sans-serif;
   }
+
+  textarea, input {
+   font-family: inherit;
+   font-size: inherit;
+}
 `;
 
 export default GlobalStyles;
