@@ -7,6 +7,7 @@ import Button from 'components/atoms/Button/Button';
 import Heading from 'components/atoms/Heading/Heading';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from 'actions';
+import { Formik } from 'formik';
 
 const StyledWrapper = styled.div`
     position: fixed;
@@ -35,31 +36,83 @@ const StyledInput = styled(Input)`
     margin: 20px 0 0;
 `;
 
-const NewItemBar = ({ pageContext, isVisible, addItem }) => {
+const StyledForm = styled.form`
+    display: flex;
+    flex-direction: column;
+`;
+
+const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
     return (
         <StyledWrapper pageColor={pageContext} isVisible={isVisible}>
             <Heading big>Create new {pageContext}</Heading>
-            <Input placeholder="title" />
-            {pageContext === 'twitters' && <StyledInput placeholder="account name" />}
-            {pageContext === 'articles' && <StyledInput placeholder="Link" />}
-            <StyledTextArea placeholder="Title" as="textarea" />
-            <Button
-                activeColor={pageContext}
-                onClick={() =>
-                    addItem(pageContext, {
-                        title: 'test',
-                        content: 'siemanko, siemanko witam w mojej kuchni'
-                    })
-                }>
-                ADD ITEM
-            </Button>
+            <Formik
+                initialValues={{
+                    title: '',
+                    created: '',
+                    content: '',
+                    articleUrl: '',
+                    twitterName: ''
+                }}
+                onSubmit={(values, { setSubmitting }) => {
+                    addItem(pageContext, values);
+                    setTimeout(() => {
+                        // alert(JSON.stringify(values, null, 2));
+                        setSubmitting(false);
+                    }, 400);
+                    closeNewItemBar();
+                }}>
+                {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                    <StyledForm onSubmit={handleSubmit}>
+                        <Input
+                            placeholder="title"
+                            type="text"
+                            name="title"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.title}
+                        />
+                        {pageContext === 'twitters' && (
+                            <StyledInput
+                                placeholder="account name"
+                                type="text"
+                                name="twitterName"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.twitterName}
+                            />
+                        )}
+                        {pageContext === 'articles' && (
+                            <StyledInput
+                                placeholder="Link"
+                                type="text"
+                                name="articleUrl"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.articleUrl}
+                            />
+                        )}
+                        <StyledTextArea
+                            as="textarea"
+                            name="content"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.content}
+                        />
+                        <Button activeColor={pageContext} type="submit" disabled={isSubmitting}>
+                            ADD ITEM
+                        </Button>
+                    </StyledForm>
+                )}
+            </Formik>
         </StyledWrapper>
     );
 };
 
 NewItemBar.propTypes = {
     pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
-    isVisible: PropTypes.bool
+    isVisible: PropTypes.bool,
+    addItem: PropTypes.func,
+    closeNewItemBar: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({

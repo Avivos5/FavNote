@@ -89,18 +89,15 @@ class GridTemplate extends React.Component {
                         isOpened={isItemBarVisible}
                         onClick={this.handleNewItemBarToggle}
                     />
-                    <NewItemBar isVisible={isItemBarVisible} />
+                    <NewItemBar
+                        isVisible={isItemBarVisible}
+                        closeNewItemBar={this.handleNewItemBarToggle}
+                    />
                 </StyledWrapper>
             </UserPageTemplate>
         );
     }
 }
-
-// const GridTemplate = ({ children, pageContext }) => (
-//     <>
-
-//     </>
-// );
 
 GridTemplate.propTypes = {
     children: PropTypes.array.isRequired,
