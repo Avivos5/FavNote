@@ -49,7 +49,8 @@ const DateInfo = styled(Paragraph)`
     font-weight: ${({ theme }) => theme.bold};
 `;
 
-const StyledAvatar = styled.div`
+const StyledAvatar = styled.a`
+    display: block;
     width: 85px;
     height: 85px;
     border: 6px solid ${({ theme }) => theme.twitters};
@@ -61,6 +62,7 @@ const StyledAvatar = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
+    cursor: pointer;
 `;
 
 const StyledLinkButton = styled.a`
@@ -88,7 +90,16 @@ class Card extends React.Component {
     };
 
     render() {
-        const { id, title, created, content, articleUrl, removeItem, pageContext } = this.props;
+        const {
+            id,
+            title,
+            created,
+            content,
+            articleUrl,
+            twitterName,
+            removeItem,
+            pageContext
+        } = this.props;
 
         if (this.state.redirect) {
             return <Redirect to={`${pageContext}/${id}`} />;
@@ -98,7 +109,9 @@ class Card extends React.Component {
                 <InnerWrapper activeColor={pageContext}>
                     <StyledHeading>{title}</StyledHeading>
                     <DateInfo>{created}</DateInfo>
-                    {pageContext === 'twitters' && <StyledAvatar />}
+                    {pageContext === 'twitters' && (
+                        <StyledAvatar href={`https://twitter.com/${twitterName}`} />
+                    )}
                     {pageContext === 'articles' && <StyledLinkButton href={articleUrl} />}
                 </InnerWrapper>
                 <InnerWrapper flex>
@@ -118,6 +131,7 @@ Card.propTypes = {
     created: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     articleUrl: PropTypes.string,
+    twitterName: PropTypes.string,
     id: PropTypes.number.isRequired,
     removeItem: PropTypes.func.isRequired
 };

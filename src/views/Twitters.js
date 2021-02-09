@@ -12,6 +12,7 @@ const Twitters = ({ twitters }) => {
                     id={twitter.id}
                     title={twitter.title}
                     content={twitter.content}
+                    twitterName={twitter.twitterName}
                     created={twitter.created}
                     key={twitter.id}
                 />

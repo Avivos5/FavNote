@@ -43,14 +43,19 @@ const StyledLink = styled.a`
     margin: 25px 0 0 0;
 `;
 
-const StyledImage = styled.img`
+const StyledImage = styled.a`
+    display: block;
     position: absolute;
     right: 120px;
     top: 25px;
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    object-fit: cover;
+    background-image: url('https://turbologo.com/articles/wp-content/uploads/2019/07/twitter-bird-logo.png.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    cursor: pointer;
 `;
 
 const StyledButton = styled(Button)`
@@ -71,9 +76,7 @@ const DetailsTemplate = ({ title, created, content, articleUrl, twitterName, pag
                         <StyledLink href={articleUrl}>Open article</StyledLink>
                     )}
                     {pageContext === 'twitters' && (
-                        <StyledImage
-                            alt={twitterName}
-                            src="https://turbologo.com/articles/wp-content/uploads/2019/07/twitter-bird-logo.png.webp"></StyledImage>
+                        <StyledImage href={`https://twitter.com/${twitterName}`}></StyledImage>
                     )}
                     <StyledButton activeColor={pageContext}>CLOSE / SAVE</StyledButton>
                 </StyledWrapper>
