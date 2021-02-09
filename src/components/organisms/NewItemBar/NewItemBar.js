@@ -8,6 +8,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import { connect } from 'react-redux';
 import { addItem as addItemAction } from 'actions';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const StyledWrapper = styled.div`
     position: fixed;
@@ -28,7 +29,7 @@ const StyledWrapper = styled.div`
 
 const StyledTextArea = styled(Input)`
     height: 30vh;
-    margin: 30px 0 100px;
+    margin: 30px 0 0;
     border-radius: 20px;
 `;
 
@@ -41,27 +42,57 @@ const StyledForm = styled.form`
     flex-direction: column;
 `;
 
+const ErrorMessage = styled.p`
+    font-size: ${({ theme }) => theme.fontSize.s};
+    margin: 5px 0 0 20px;
+    color: red;
+`;
+
+const StyledButton = styled(Button)`
+    margin-top: 100px;
+`;
+
 const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
+    const URLRegEx = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+
+    let validationShape = {
+        title: Yup.string().required('Title is required'),
+        content: Yup.string().required('Content is required')
+    };
+
+    if (pageContext === 'twitters') {
+        validationShape.twitterName = Yup.string().required('Please, add twitter name');
+    } else if (pageContext === 'articles') {
+        validationShape.articleUrl = Yup.string()
+            .matches(URLRegEx, 'Enter a valid URL')
+            .required('Article URL is required');
+    }
+
     return (
         <StyledWrapper pageColor={pageContext} isVisible={isVisible}>
             <Heading big>Create new {pageContext}</Heading>
             <Formik
                 initialValues={{
                     title: '',
-                    created: '',
                     content: '',
-                    articleUrl: '',
-                    twitterName: ''
+                    created: '',
+                    twitterName: '',
+                    articleUrl: ''
                 }}
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values) => {
                     addItem(pageContext, values);
-                    setTimeout(() => {
-                        // alert(JSON.stringify(values, null, 2));
-                        setSubmitting(false);
-                    }, 400);
                     closeNewItemBar();
-                }}>
-                {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+                }}
+                validationSchema={Yup.object().shape(validationShape)}>
+                {({
+                    values,
+                    touched,
+                    errors,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    isSubmitting
+                }) => (
                     <StyledForm onSubmit={handleSubmit}>
                         <Input
                             placeholder="title"
@@ -71,25 +102,38 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                             onBlur={handleBlur}
                             value={values.title}
                         />
+                        {errors.title && touched.title && (
+                            <ErrorMessage>{errors.title}</ErrorMessage>
+                        )}
                         {pageContext === 'twitters' && (
-                            <StyledInput
-                                placeholder="account name"
-                                type="text"
-                                name="twitterName"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.twitterName}
-                            />
+                            <>
+                                <StyledInput
+                                    placeholder="account name"
+                                    type="text"
+                                    name="twitterName"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.twitterName}
+                                />
+                                {errors.twitterName && touched.twitterName && (
+                                    <ErrorMessage>{errors.twitterName}</ErrorMessage>
+                                )}
+                            </>
                         )}
                         {pageContext === 'articles' && (
-                            <StyledInput
-                                placeholder="Link"
-                                type="text"
-                                name="articleUrl"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.articleUrl}
-                            />
+                            <>
+                                <StyledInput
+                                    placeholder="Link"
+                                    type="text"
+                                    name="articleUrl"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.articleUrl}
+                                />
+                                {errors.articleUrl && touched.articleUrl && (
+                                    <ErrorMessage>{errors.articleUrl}</ErrorMessage>
+                                )}
+                            </>
                         )}
                         <StyledTextArea
                             as="textarea"
@@ -98,9 +142,15 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                             onBlur={handleBlur}
                             value={values.content}
                         />
-                        <Button activeColor={pageContext} type="submit" disabled={isSubmitting}>
+                        {errors.content && touched.content && (
+                            <ErrorMessage>{errors.content}</ErrorMessage>
+                        )}
+                        <StyledButton
+                            activeColor={pageContext}
+                            type="submit"
+                            disabled={isSubmitting}>
                             ADD ITEM
-                        </Button>
+                        </StyledButton>
                     </StyledForm>
                 )}
             </Formik>
