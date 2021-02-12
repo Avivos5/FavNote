@@ -7,9 +7,11 @@ import Button from 'components/atoms/Button/Button';
 import Input from 'components/atoms/Input/Input';
 import { Link } from 'react-router-dom';
 import { routes } from 'routes/index';
+import { connect } from 'react-redux';
+import { authenticate as authenticateAction } from 'actions';
+import { Redirect } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
-import axios from 'axios';
 
 const StyledWrapper = styled.div`
     height: 100vh;
@@ -68,7 +70,7 @@ const StyledLink = styled(Link)`
     margin: 20px 0 50px;
 `;
 
-const AuthTemplate = ({ authType }) => {
+const AuthTemplate = ({ authType, authenticateLogin, userID }) => {
     return (
         <StyledWrapper>
             <StyledLogo src={logo} alt="FavNote logo" />
@@ -77,58 +79,69 @@ const AuthTemplate = ({ authType }) => {
                 <Formik
                     initialValues={{ username: '', password: '' }}
                     onSubmit={({ username, password }) => {
-                        axios
-                            .post(`http://localhost:9000/api/user/${authType}`, {
-                                username,
-                                password
-                            })
-                            .then((response) =>
-                                console.log(
-                                    authType === 'login' ? 'Zalogowano' : 'zarejestrowano',
-                                    response
-                                )
-                            )
-                            .catch((err) => console.log(err, err.response));
+                        console.log(username, password);
+                        switch (authType) {
+                            case 'login':
+                                authenticateLogin(username, password);
+                                break;
+
+                            default:
+                                break;
+                        }
                     }}>
-                    {({ handleChange, handleBlur, values }) => (
-                        <>
-                            <StyledHeading>
-                                {authType === 'login' ? 'Sign in' : 'Registeration'}
-                            </StyledHeading>
-                            <StyledForm>
-                                <StyledInput
-                                    placeholder="login"
-                                    type="text"
-                                    name="username"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.username}
-                                />
-                                <StyledInput
-                                    placeholder="password"
-                                    type="password"
-                                    name="password"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.password}
-                                />
-                                <Button activeColor="notes" type="submit">
-                                    {authType === 'login' ? 'Sign in' : 'Register'}
-                                </Button>
-                            </StyledForm>
-                            <StyledLink to={routes[authType === 'login' ? 'register' : 'login']}>
-                                I want to {authType === 'login' ? 'Register' : 'Login in'}
-                            </StyledLink>
-                        </>
-                    )}
+                    {({ handleChange, handleBlur, values }) => {
+                        if (userID) {
+                            return <Redirect to={routes.home} />; //żeby nie było teogo błędu podczas logowania z niezaładowanym pageContext, tutaj musi być routes.notes. Narazie zosawiam tak, ale warto to sprawdzić
+                        }
+                        return (
+                            <>
+                                <StyledHeading>
+                                    {authType === 'login' ? 'Sign in' : 'Registeration'}
+                                </StyledHeading>
+                                <StyledForm>
+                                    <StyledInput
+                                        placeholder="login"
+                                        type="text"
+                                        name="username"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.username}
+                                    />
+                                    <StyledInput
+                                        placeholder="password"
+                                        type="password"
+                                        name="password"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.password}
+                                    />
+                                    <Button activeColor="notes" type="submit">
+                                        {authType === 'login' ? 'Sign in' : 'Register'}
+                                    </Button>
+                                </StyledForm>
+                                <StyledLink
+                                    to={routes[authType === 'login' ? 'register' : 'login']}>
+                                    I want to {authType === 'login' ? 'Register' : 'Login in'}
+                                </StyledLink>
+                            </>
+                        );
+                    }}
                 </Formik>
             </AuthCard>
         </StyledWrapper>
     );
 };
 
+const mapStateToProps = ({ userID = null }) => ({
+    userID
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    authenticateLogin: (username, password) => dispatch(authenticateAction(username, password))
+});
+
 AuthTemplate.propTypes = {
     authType: PropTypes.oneOf(['login', 'register'])
 };
 
-export default AuthTemplate;
+export default connect(mapStateToProps, mapDispatchToProps)(AuthTemplate);
