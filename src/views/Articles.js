@@ -33,6 +33,10 @@ Articles.propTypes = {
     )
 };
 
+Articles.defaultProps = {
+    articles: []
+};
+
 const mapStateToProps = ({ articles }) => ({ articles });
 
 export default connect(mapStateToProps)(Articles);

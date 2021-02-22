@@ -31,6 +31,10 @@ Notes.propTypes = {
     )
 };
 
+Notes.defaultProps = {
+    notes: []
+};
+
 const mapStateToProps = ({ notes }) => ({ notes });
 
 export default connect(mapStateToProps)(Notes);
