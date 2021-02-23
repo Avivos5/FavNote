@@ -105,8 +105,8 @@ class Card extends React.Component {
             return <Redirect to={`${pageContext}/${id}`} />;
         }
         return (
-            <StyledWrapper onClick={() => this.handleCardClick()}>
-                <InnerWrapper activeColor={pageContext}>
+            <StyledWrapper>
+                <InnerWrapper onClick={() => this.handleCardClick()} activeColor={pageContext}>
                     <StyledHeading>{title}</StyledHeading>
                     {/* <DateInfo>{created}</DateInfo> */}
                     {pageContext === 'twitters' && (

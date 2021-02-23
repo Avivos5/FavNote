@@ -1,4 +1,4 @@
-import { REMOVE_ITEM, ADD_ITEM, AUTHENTICATE_SUCCES, FETCH_SUCCES } from 'actions';
+import { ADD_ITEM, AUTHENTICATE_SUCCES, FETCH_SUCCES, REMOVE_ITEM_SUCCES } from 'actions';
 
 const initialState = {
     // notes: [
@@ -105,10 +105,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case REMOVE_ITEM:
+        case REMOVE_ITEM_SUCCES:
             return {
                 ...state,
-                [payload.itemType]: state[payload.itemType].filter((item) => item.id !== payload.id)
+                [payload.itemType]: [
+                    ...state[payload.itemType].filter((item) => item._id !== payload.id)
+                ]
             };
         case ADD_ITEM:
             return {
