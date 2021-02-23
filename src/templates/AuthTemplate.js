@@ -141,7 +141,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AuthTemplate.propTypes = {
-    authType: PropTypes.oneOf(['login', 'register'])
+    authType: PropTypes.oneOf(['login', 'register']),
+    authenticateLogin: PropTypes.func,
+    userID: PropTypes.string
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthTemplate);

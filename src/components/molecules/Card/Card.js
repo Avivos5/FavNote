@@ -43,11 +43,11 @@ const StyledHeading = styled(Heading)`
     margin: 5px 0 0;
 `;
 
-const DateInfo = styled(Paragraph)`
-    margin: 0 0 5px;
-    font-size: ${({ theme }) => theme.fontSize.xs};
-    font-weight: ${({ theme }) => theme.bold};
-`;
+// const DateInfo = styled(Paragraph)`
+//     margin: 0 0 5px;
+//     font-size: ${({ theme }) => theme.fontSize.xs};
+//     font-weight: ${({ theme }) => theme.bold};
+// `;
 
 const StyledAvatar = styled.a`
     display: block;
@@ -93,7 +93,7 @@ class Card extends React.Component {
         const {
             id,
             title,
-            created,
+            // created,
             content,
             articleUrl,
             twitterName,
@@ -108,7 +108,7 @@ class Card extends React.Component {
             <StyledWrapper onClick={() => this.handleCardClick()}>
                 <InnerWrapper activeColor={pageContext}>
                     <StyledHeading>{title}</StyledHeading>
-                    <DateInfo>{created}</DateInfo>
+                    {/* <DateInfo>{created}</DateInfo> */}
                     {pageContext === 'twitters' && (
                         <StyledAvatar href={`https://twitter.com/${twitterName}`} />
                     )}
@@ -128,11 +128,11 @@ class Card extends React.Component {
 Card.propTypes = {
     pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
     title: PropTypes.string.isRequired,
-    created: PropTypes.string.isRequired,
+    // created: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     articleUrl: PropTypes.string,
     twitterName: PropTypes.string,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     removeItem: PropTypes.func.isRequired
 };
 

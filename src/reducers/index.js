@@ -99,6 +99,7 @@ const initialState = {
     //         created: '10 days'
     //     }
     // ]
+    userID: '60242c4d60d0a74ece1df35e' //to też jest tymczasowe, stworzone tylko po to żeby nie musieć się logować przy każdym odświeżaniu
     // wszystko w tym Initial state ma być ostatecznie wyrzucone, ma zostać pusty obiekt
 };
 

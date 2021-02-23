@@ -1,28 +1,76 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DetailsTemplate from 'templates/DetailsTemplate';
-
-const DetailsPage = () => {
-    const dummyArticle = {
-        id: 1,
-        title: 'Wake me up when Vue ends',
-        content:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis malesuada tortor vel libero fermentum, eu consectetur ex cursus. Cras malesuada erat ut ex tempus molestie. In ac ex dictum, elementum magna vitae, hendrerit tellus. In venenatis id ex a posuere. Nulla ipsum metus, suscipit sed ligula vitae, pellentesque ullamcorper felis. Nullam quis sem dignissim, vulputate metus non, placerat orci. Curabitur id ex sit amet urna elementum rutrum in non justo. Sed tempus urna id egestas tincidunt. Morbi posuere dapibus enim, non varius nisi pharetra ut. Vestibulum in maximus nibh. Aenean fermentum nibh risus, a varius ipsum dictum eget. Proin a pharetra ex. Integer nec velit nunc. Quisque elementum non ligula quis imperdiet.',
-        twitterName: 'hello_roman',
-        articleUrl: 'https://youtube.com/helloroman',
-        created: '1 day'
+import withContext from 'hoc/withContext';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+class DetailsPage extends Component {
+    state = {
+        activeItem: {
+            title: '',
+            content: '',
+            articleUrl: '',
+            twitterName: ''
+        }
     };
 
-    return (
-        <>
-            <DetailsTemplate
-                title={dummyArticle.title}
-                created={dummyArticle.created}
-                content={dummyArticle.content}
-                articleUrl={dummyArticle.articleUrl}
-                twitterName={dummyArticle.twitterName}
-            />
-        </>
-    );
+    componentDidMount() {
+        if (this.props.activeItem) {
+            const [activeItem] = this.props.activeItem;
+            this.setState({ activeItem });
+        } else {
+            const { id } = this.props.match.params;
+
+            axios
+                .get(`http://localhost:9000/api/note/${id}`)
+                .then(({ data }) => {
+                    this.setState({ activeItem: data });
+                })
+                .catch((err) => console.log(err));
+        }
+    }
+
+    render() {
+        const { activeItem } = this.state;
+        return (
+            <>
+                <DetailsTemplate
+                    title={activeItem.title}
+                    // created={activeItem.created}
+                    content={activeItem.content}
+                    articleUrl={activeItem.articleUrl}
+                    twitterName={activeItem.twitterName}
+                />
+            </>
+        );
+    }
+}
+
+DetailsPage.propTypes = {
+    activeItem: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            content: PropTypes.string.isRequired,
+            articleUrl: PropTypes.string.isRequired,
+            twitterName: PropTypes.string.isRequired
+        })
+    ),
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            id: PropTypes.string
+        })
+    })
 };
 
-export default DetailsPage;
+const mapStateToProps = (state, ownProps) => {
+    if (state[ownProps.pageContext]) {
+        return {
+            activeItem: state[ownProps.pageContext].filter(
+                (item) => item._id === ownProps.match.params.id
+            )
+        };
+    }
+    return {};
+};
+
+export default withContext(connect(mapStateToProps)(DetailsPage));
