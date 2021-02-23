@@ -10,6 +10,9 @@ export const FETCH_FAILURE = 'FETCH_FAILURE';
 export const REMOVE_ITEM_REQUEST = 'REMOVE_ITEM_REQUEST';
 export const REMOVE_ITEM_SUCCES = 'REMOVE_ITEM_SUCCES';
 export const REMOVE_ITEM_FAILURE = 'REMOVE_ITEM_FAILURE';
+export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
+export const ADD_ITEM_SUCCES = 'ADD_ITEM_SUCCES';
+export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
 
 export const removeItem = (itemType, id) => (dispatch) => {
     dispatch({ type: REMOVE_ITEM_REQUEST });
@@ -31,19 +34,28 @@ export const removeItem = (itemType, id) => (dispatch) => {
         });
 };
 
-export const addItem = (itemType, itemContent) => {
-    const getId = () => `_${Math.random().toString(36).substr(2, 9)}`; //prosta funkcja generująca unikalne ID
+export const addItem = (itemType, itemContent) => (dispatch, getState) => {
+    dispatch({ type: ADD_ITEM_REQUEST });
 
-    return {
-        type: ADD_ITEM,
-        payload: {
-            itemType,
-            item: {
-                id: getId(),
-                ...itemContent
-            }
-        }
-    };
+    axios
+        .post(`http://localhost:9000/api/note/`, {
+            userID: getState().userID,
+            type: itemType,
+            ...itemContent
+        })
+        .then(({ data }) => {
+            dispatch({
+                type: ADD_ITEM_SUCCES,
+                payload: {
+                    itemType,
+                    data
+                }
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            dispatch({ type: ADD_ITEM_FAILURE });
+        });
 };
 
 export const authenticate = (username, password) => (dispatch) => {

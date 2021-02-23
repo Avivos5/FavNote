@@ -1,4 +1,4 @@
-import { ADD_ITEM, AUTHENTICATE_SUCCES, FETCH_SUCCES, REMOVE_ITEM_SUCCES } from 'actions';
+import { AUTHENTICATE_SUCCES, FETCH_SUCCES, REMOVE_ITEM_SUCCES, ADD_ITEM_SUCCES } from 'actions';
 
 const initialState = {
     // notes: [
@@ -112,10 +112,10 @@ const rootReducer = (state = initialState, { type, payload }) => {
                     ...state[payload.itemType].filter((item) => item._id !== payload.id)
                 ]
             };
-        case ADD_ITEM:
+        case ADD_ITEM_SUCCES:
             return {
                 ...state,
-                [payload.itemType]: [...state[payload.itemType], payload.item]
+                [payload.itemType]: [...state[payload.itemType], payload.data]
             };
         case AUTHENTICATE_SUCCES:
             return {
