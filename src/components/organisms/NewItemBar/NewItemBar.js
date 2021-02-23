@@ -84,15 +84,7 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                     closeNewItemBar();
                 }}
                 validationSchema={Yup.object().shape(validationShape)}>
-                {({
-                    values,
-                    touched,
-                    errors,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting
-                }) => (
+                {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => (
                     <StyledForm onSubmit={handleSubmit}>
                         <Input
                             placeholder="title"
@@ -145,10 +137,7 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                         {errors.content && touched.content && (
                             <ErrorMessage>{errors.content}</ErrorMessage>
                         )}
-                        <StyledButton
-                            activeColor={pageContext}
-                            type="submit"
-                            disabled={isSubmitting}>
+                        <StyledButton activeColor={pageContext} type="submit">
                             ADD ITEM
                         </StyledButton>
                     </StyledForm>
