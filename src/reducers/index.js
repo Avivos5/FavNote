@@ -1,7 +1,7 @@
 import { AUTHENTICATE_SUCCES, FETCH_SUCCES, REMOVE_ITEM_SUCCES, ADD_ITEM_SUCCES } from 'actions';
 
 const initialState = {
-    userID: '60242c4d60d0a74ece1df35e' //to też jest tymczasowe, stworzone tylko po to żeby nie musieć się logować przy każdym odświeżaniu
+    // userID: '60242c4d60d0a74ece1df35e' //to też jest tymczasowe, stworzone tylko po to żeby nie musieć się logować przy każdym odświeżaniu
 };
 
 const rootReducer = (state = initialState, { type, payload }) => {
