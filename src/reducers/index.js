@@ -1,8 +1,12 @@
-import { AUTHENTICATE_SUCCES, FETCH_SUCCES, REMOVE_ITEM_SUCCES, ADD_ITEM_SUCCES } from 'actions';
+import {
+    AUTHENTICATE_SUCCES,
+    FETCH_SUCCES,
+    REMOVE_ITEM_SUCCES,
+    ADD_ITEM_SUCCES,
+    LOGOUT_SUCCES
+} from 'actions';
 
-const initialState = {
-    // userID: '60242c4d60d0a74ece1df35e' //to też jest tymczasowe, stworzone tylko po to żeby nie musieć się logować przy każdym odświeżaniu
-};
+const initialState = {};
 
 const rootReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -28,6 +32,9 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 ...state,
                 [payload.itemType]: [...payload.data]
             };
+
+        case LOGOUT_SUCCES:
+            return {};
 
         default:
             return state;

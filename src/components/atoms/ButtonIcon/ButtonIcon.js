@@ -9,6 +9,7 @@ const ButtonIcon = styled.button`
     background-position: 50% 50%;
     background-size: 40%;
     background-repeat: no-repeat;
+    background-color: transparent;
     border: none;
     outline: none;
     cursor: pointer;

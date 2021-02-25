@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import { browserHistory } from 'react-router';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST';
@@ -13,6 +14,9 @@ export const REMOVE_ITEM_FAILURE = 'REMOVE_ITEM_FAILURE';
 export const ADD_ITEM_REQUEST = 'ADD_ITEM_REQUEST';
 export const ADD_ITEM_SUCCES = 'ADD_ITEM_SUCCES';
 export const ADD_ITEM_FAILURE = 'ADD_ITEM_FAILURE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCES = 'LOGOUT_SUCCES';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 export const removeItem = (itemType, id) => (dispatch) => {
     dispatch({ type: REMOVE_ITEM_REQUEST });
@@ -90,5 +94,23 @@ export const fetchItems = (itemType) => (dispatch, getState) => {
         .catch((err) => {
             console.log(err);
             dispatch({ type: FETCH_FAILURE });
+        });
+};
+
+export const logout = (history) => (dispatch) => {
+    dispatch({ type: LOGOUT_REQUEST });
+
+    axios
+        .post('http://localhost:9000/api/user/logout')
+        .then(({ data }) => {
+            console.log(data);
+            dispatch({ type: LOGOUT_SUCCES });
+
+            // browserHistory.push('/login');
+            history.push('/login');
+        })
+        .catch((err) => {
+            console.log(err);
+            dispatch({ type: LOGOUT_FAILURE });
         });
 };
