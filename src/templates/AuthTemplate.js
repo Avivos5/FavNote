@@ -90,14 +90,13 @@ class AuthTemplate extends Component {
     registerServ = (username, password) => {
         axios
             .post('http://localhost:9000/api/user/register', { username, password })
-            .then((response) => {
-                console.log('udało się zarejestrować ', response);
+            .then(() => {
                 this.setState({
                     registerInfo: 'Registered, please log in.'
                 });
             })
             .catch((err) => {
-                console.log('Nie udało się zarejestrować ', err);
+                console.log(err);
                 this.setState({
                     registerInfo: `Couldn't register. Try one more time.`
                 });
@@ -115,7 +114,6 @@ class AuthTemplate extends Component {
                     <Formik
                         initialValues={{ username: '', password: '' }}
                         onSubmit={({ username, password }) => {
-                            console.log(username, password);
                             switch (authType) {
                                 case 'login':
                                     authenticateLogin(username, password);
