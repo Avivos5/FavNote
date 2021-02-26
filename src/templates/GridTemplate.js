@@ -69,7 +69,7 @@ class GridTemplate extends React.Component {
     };
 
     render() {
-        const { children, pageContext } = this.props;
+        const { children, pageContext, itemsCount } = this.props;
         const { isItemBarVisible } = this.state;
 
         return (
@@ -80,7 +80,9 @@ class GridTemplate extends React.Component {
                         <StyledHeading big as="h1">
                             {pageContext}
                         </StyledHeading>
-                        <StyledParagraph>5 {pageContext}</StyledParagraph>
+                        <StyledParagraph>
+                            {itemsCount} {pageContext}
+                        </StyledParagraph>
                     </StyledPageHeader>
                     <StyledGrid>{children}</StyledGrid>
                     <StyledButtonIcon
@@ -101,7 +103,8 @@ class GridTemplate extends React.Component {
 
 GridTemplate.propTypes = {
     children: PropTypes.array.isRequired,
-    pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles'])
+    pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+    itemsCount: PropTypes.number
 };
 
 GridTemplate.deafultProps = {

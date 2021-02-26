@@ -79,9 +79,10 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                     twitterName: '',
                     articleUrl: ''
                 }}
-                onSubmit={(values) => {
+                onSubmit={(values, { resetForm }) => {
                     addItem(pageContext, values);
                     closeNewItemBar();
+                    resetForm();
                 }}
                 validationSchema={Yup.object().shape(validationShape)}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => (

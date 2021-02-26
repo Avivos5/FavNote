@@ -13,7 +13,7 @@ class Twitters extends Component {
     render() {
         const { twitters } = this.props;
         return (
-            <GridTemplate>
+            <GridTemplate itemsCount={twitters.length}>
                 {twitters.map(({ title, content, twitterName, _id: id }) => (
                     <Card
                         id={id}

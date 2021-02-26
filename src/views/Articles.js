@@ -14,7 +14,7 @@ class Articles extends Component {
         const { articles } = this.props;
 
         return (
-            <GridTemplate>
+            <GridTemplate itemsCount={articles.length}>
                 {articles.map(({ _id: id, title, content, articleUrl }) => (
                     <Card
                         id={id}
