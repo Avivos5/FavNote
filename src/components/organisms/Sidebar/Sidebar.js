@@ -46,6 +46,10 @@ const StyledLogo = styled(ButtonIcon)`
     margin-bottom: 10vh;
 `;
 
+const LogoutButtonIcon = styled(ButtonIcon)`
+    margin-bottom: 20px;
+`;
+
 const Sidebar = ({ pageContext, logout, history }) => {
     return (
         <StyledWrapper activeColor={pageContext}>
@@ -71,11 +75,12 @@ const Sidebar = ({ pageContext, logout, history }) => {
                     />
                 </li>
             </StyledLinksWrap>
-            <ButtonIcon
+            <LogoutButtonIcon
                 onClick={() => {
                     logout(history);
                 }}
-                icon={logoutIcon}></ButtonIcon>
+                icon={logoutIcon}
+            />
         </StyledWrapper>
     );
 };

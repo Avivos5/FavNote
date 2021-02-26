@@ -52,6 +52,10 @@ const StyledButton = styled(Button)`
     margin-top: 100px;
 `;
 
+const StyledHeading = styled(Heading)`
+    margin-bottom: 15px;
+`;
+
 const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
     const URLRegEx = /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
 
@@ -70,7 +74,7 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
 
     return (
         <StyledWrapper pageColor={pageContext} isVisible={isVisible}>
-            <Heading big>Create new {pageContext}</Heading>
+            <StyledHeading big>Create new {pageContext}</StyledHeading>
             <Formik
                 initialValues={{
                     title: '',

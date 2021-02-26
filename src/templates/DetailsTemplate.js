@@ -6,6 +6,7 @@ import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import withContext from 'hoc/withContext';
+import { Link } from 'react-router-dom';
 
 const StyledWrapper = styled.div`
     padding: 25px 150px 25px 70px;
@@ -78,7 +79,9 @@ const DetailsTemplate = ({ title, created, content, articleUrl, twitterName, pag
                     {pageContext === 'twitters' && (
                         <StyledImage href={`https://twitter.com/${twitterName}`}></StyledImage>
                     )}
-                    <StyledButton activeColor={pageContext}>CLOSE / SAVE</StyledButton>
+                    <Link to={`/${pageContext}`}>
+                        <StyledButton activeColor={pageContext}>CLOSE</StyledButton>
+                    </Link>
                 </StyledWrapper>
             </UserPageTemplate>
         </>
