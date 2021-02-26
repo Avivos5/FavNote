@@ -35,19 +35,13 @@ const InnerWrapper = styled.div`
         css`
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: space-between;
         `}
 `;
 
 const StyledHeading = styled(Heading)`
     margin: 5px 0 0;
 `;
-
-// const DateInfo = styled(Paragraph)`
-//     margin: 0 0 5px;
-//     font-size: ${({ theme }) => theme.fontSize.xs};
-//     font-weight: ${({ theme }) => theme.bold};
-// `;
 
 const StyledAvatar = styled.a`
     display: block;
@@ -80,45 +74,50 @@ const StyledLinkButton = styled.a`
     cursor: pointer;
 `;
 
+const ButtonWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+`;
+
+const StyledParagraph = styled(Paragraph)`
+    margin-top: 20px;
+`;
+
 class Card extends React.Component {
     state = {
         redirect: false
     };
 
-    handleCardClick = () => {
+    openNote = () => {
         this.setState({ redirect: true });
     };
 
     render() {
-        const {
-            id,
-            title,
-            // created,
-            content,
-            articleUrl,
-            twitterName,
-            removeItem,
-            pageContext
-        } = this.props;
+        const { id, title, content, articleUrl, twitterName, removeItem, pageContext } = this.props;
 
         if (this.state.redirect) {
             return <Redirect to={`${pageContext}/${id}`} />;
         }
         return (
             <StyledWrapper>
-                <InnerWrapper onClick={() => this.handleCardClick()} activeColor={pageContext}>
+                <InnerWrapper activeColor={pageContext}>
                     <StyledHeading>{title}</StyledHeading>
-                    {/* <DateInfo>{created}</DateInfo> */}
                     {pageContext === 'twitters' && (
                         <StyledAvatar href={`https://twitter.com/${twitterName}`} />
                     )}
                     {pageContext === 'articles' && <StyledLinkButton href={articleUrl} />}
                 </InnerWrapper>
                 <InnerWrapper flex>
-                    <Paragraph>{content}</Paragraph>
-                    <Button onClick={() => removeItem(pageContext, id)} secondary>
-                        REMOVE
-                    </Button>
+                    <StyledParagraph>{content}</StyledParagraph>
+                    <ButtonWrapper>
+                        <Button onClick={() => removeItem(pageContext, id)} secondary>
+                            REMOVE
+                        </Button>
+                        <Button onClick={() => this.openNote()} secondary>
+                            Open
+                        </Button>
+                    </ButtonWrapper>
                 </InnerWrapper>
             </StyledWrapper>
         );
@@ -128,7 +127,6 @@ class Card extends React.Component {
 Card.propTypes = {
     pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
     title: PropTypes.string.isRequired,
-    // created: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     articleUrl: PropTypes.string,
     twitterName: PropTypes.string,
