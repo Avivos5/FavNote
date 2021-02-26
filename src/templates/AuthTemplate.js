@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Heading from 'components/atoms/Heading/Heading';
@@ -12,6 +12,8 @@ import { authenticate as authenticateAction } from 'actions';
 import { Redirect } from 'react-router-dom';
 
 import { Form, Formik } from 'formik';
+import axios from 'axios';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
 const StyledWrapper = styled.div`
     height: 100vh;
@@ -33,6 +35,7 @@ const StyledLogo = styled.img`
 `;
 
 const AuthCard = styled.div`
+    position: relative;
     width: 400px;
     height: 400px;
     background-color: white;
@@ -67,70 +70,111 @@ const StyledLink = styled(Link)`
     font-weight: ${({ theme }) => theme.bold};
     color: black;
     text-transform: uppercase;
-    margin: 20px 0 50px;
+    margin: 30px 0 40px;
 `;
 
-const AuthTemplate = ({ authType, authenticateLogin, userID }) => {
-    return (
-        <StyledWrapper>
-            <StyledLogo src={logo} alt="FavNote logo" />
-            <Heading>Your new favorite online notes experience</Heading>
-            <AuthCard>
-                <Formik
-                    initialValues={{ username: '', password: '' }}
-                    onSubmit={({ username, password }) => {
-                        console.log(username, password);
-                        switch (authType) {
-                            case 'login':
-                                authenticateLogin(username, password);
-                                break;
+const StyledParagraph = styled(Paragraph)`
+    position: absolute;
+    bottom: 20px;
+    background-color: ${({ theme }) => theme.notes};
+    font-weight: ${({ theme }) => theme.bold};
+    padding: 7.5px 15px;
+    border-radius: 25px;
+`;
 
-                            default:
-                                break;
-                        }
-                    }}>
-                    {({ handleChange, handleBlur, values }) => {
-                        if (userID) {
-                            return <Redirect to={routes.home} />; //żeby nie było teogo błędu podczas logowania z niezaładowanym pageContext, tutaj musi być routes.notes. Narazie zosawiam tak, ale warto to sprawdzić
-                        }
-                        return (
-                            <>
-                                <StyledHeading>
-                                    {authType === 'login' ? 'Sign in' : 'Registeration'}
-                                </StyledHeading>
-                                <StyledForm>
-                                    <StyledInput
-                                        placeholder="login"
-                                        type="text"
-                                        name="username"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.username}
-                                    />
-                                    <StyledInput
-                                        placeholder="password"
-                                        type="password"
-                                        name="password"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.password}
-                                    />
-                                    <Button activeColor="notes" type="submit">
-                                        {authType === 'login' ? 'Sign in' : 'Register'}
-                                    </Button>
-                                </StyledForm>
-                                <StyledLink
-                                    to={routes[authType === 'login' ? 'register' : 'login']}>
-                                    I want to {authType === 'login' ? 'Register' : 'Login in'}
-                                </StyledLink>
-                            </>
-                        );
-                    }}
-                </Formik>
-            </AuthCard>
-        </StyledWrapper>
-    );
-};
+class AuthTemplate extends Component {
+    state = {
+        registerInfo: ''
+    };
+
+    registerServ = (username, password) => {
+        axios
+            .post('http://localhost:9000/api/user/register', { username, password })
+            .then((response) => {
+                console.log('udało się zarejestrować ', response);
+                this.setState({
+                    registerInfo: 'Registered, please log in.'
+                });
+            })
+            .catch((err) => {
+                console.log('Nie udało się zarejestrować ', err);
+                this.setState({
+                    registerInfo: `Couldn't register. Try one more time.`
+                });
+            });
+    };
+
+    render() {
+        const { authType, authenticateLogin, userID } = this.props;
+        const { registerInfo } = this.state;
+        return (
+            <StyledWrapper>
+                <StyledLogo src={logo} alt="FavNote logo" />
+                <Heading>Your new favorite online notes experience</Heading>
+                <AuthCard>
+                    <Formik
+                        initialValues={{ username: '', password: '' }}
+                        onSubmit={({ username, password }) => {
+                            console.log(username, password);
+                            switch (authType) {
+                                case 'login':
+                                    authenticateLogin(username, password);
+                                    break;
+
+                                case 'register':
+                                    this.registerServ(username, password);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }}>
+                        {({ handleChange, handleBlur, values }) => {
+                            if (userID) {
+                                return <Redirect to={routes.home} />; //żeby nie było teogo błędu podczas logowania z niezaładowanym pageContext, tutaj musi być routes.notes. Narazie zostawiam tak, ale warto to sprawdzić
+                            }
+                            return (
+                                <>
+                                    <StyledHeading>
+                                        {authType === 'login' ? 'Sign in' : 'Registeration'}
+                                    </StyledHeading>
+                                    <StyledForm>
+                                        <StyledInput
+                                            placeholder="login"
+                                            type="text"
+                                            name="username"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.username}
+                                        />
+                                        <StyledInput
+                                            placeholder="password"
+                                            type="password"
+                                            name="password"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.password}
+                                        />
+                                        <Button activeColor="notes" type="submit">
+                                            {authType === 'login' ? 'Sign in' : 'Register'}
+                                        </Button>
+                                    </StyledForm>
+                                    <StyledLink
+                                        to={routes[authType === 'login' ? 'register' : 'login']}>
+                                        I want to {authType === 'login' ? 'Register' : 'Login in'}
+                                    </StyledLink>
+                                    {registerInfo && (
+                                        <StyledParagraph>{registerInfo}</StyledParagraph>
+                                    )}
+                                </>
+                            );
+                        }}
+                    </Formik>
+                </AuthCard>
+            </StyledWrapper>
+        );
+    }
+}
 
 const mapStateToProps = ({ userID = null }) => ({
     userID
