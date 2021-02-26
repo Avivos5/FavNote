@@ -2,14 +2,14 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import withContext from 'hoc/withContext';
+import withContext from './../../../hoc/withContext';
 
 import Button from '../../atoms/Button/Button';
 import Paragraph from '../../atoms/Paragraph/Paragraph';
 import Heading from '../../atoms/Heading/Heading';
 import linkImg from '../../../assets/icons/link.svg';
 import { connect } from 'react-redux';
-import { removeItem as removeItemAction } from 'actions';
+import { removeItem as removeItemAction } from './../../../actions';
 
 const StyledWrapper = styled.div`
     min-height: 380px;

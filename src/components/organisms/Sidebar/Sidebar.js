@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import withContext from 'hoc/withContext';
+import withContext from './../../../hoc/withContext';
 import { withRouter } from 'react-router';
 
 import ButtonIcon from '../../atoms/ButtonIcon/ButtonIcon';
@@ -12,7 +12,7 @@ import penIcon from '../../../assets/icons/pen.svg';
 import twitterIcon from '../../../assets/icons/twitter.svg';
 import logoIcon from '../../../assets/icons/logo.svg';
 import { connect } from 'react-redux';
-import { logout as logoutAction } from 'actions';
+import { logout as logoutAction } from './../../../actions';
 
 const StyledWrapper = styled.div`
     position: fixed;
