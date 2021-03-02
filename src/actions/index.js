@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { browserHistory } from 'react-router';
 
 export const ADD_ITEM = 'ADD_ITEM';
 export const AUTHENTICATE_REQUEST = 'AUTHENTICATE_REQUEST';
@@ -68,7 +67,6 @@ export const authenticate = (username, password) => (dispatch) => {
     axios
         .post('http://localhost:9000/api/user/login', { username, password })
         .then((payload) => {
-            console.log(payload);
             dispatch({ type: AUTHENTICATE_SUCCES, payload });
         })
         .catch((err) => {
@@ -88,7 +86,6 @@ export const fetchItems = (itemType) => (dispatch, getState) => {
             }
         })
         .then(({ data }) => {
-            console.log(data);
             dispatch({ type: FETCH_SUCCES, payload: { data, itemType } });
         })
         .catch((err) => {
@@ -102,11 +99,8 @@ export const logout = (history) => (dispatch) => {
 
     axios
         .post('http://localhost:9000/api/user/logout')
-        .then(({ data }) => {
-            console.log(data);
+        .then(() => {
             dispatch({ type: LOGOUT_SUCCES });
-
-            // browserHistory.push('/login');
             history.push('/login');
         })
         .catch((err) => {

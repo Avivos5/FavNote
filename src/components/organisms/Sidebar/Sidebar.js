@@ -13,6 +13,7 @@ import twitterIcon from '../../../assets/icons/twitter.svg';
 import logoIcon from '../../../assets/icons/logo.svg';
 import { connect } from 'react-redux';
 import { logout as logoutAction } from './../../../actions';
+import DarkModeToggle from 'react-dark-mode-toggle';
 
 const StyledWrapper = styled.div`
     position: fixed;
@@ -50,7 +51,12 @@ const LogoutButtonIcon = styled(ButtonIcon)`
     margin-bottom: 20px;
 `;
 
-const Sidebar = ({ pageContext, logout, history }) => {
+const StyledToggle = styled(DarkModeToggle)`
+    outline: none;
+    margin-bottom: 20px;
+`;
+
+const Sidebar = ({ pageContext, logout, history, themeToggler, isDarkTheme }) => {
     return (
         <StyledWrapper activeColor={pageContext}>
             <StyledLogo as={Link} to="/" icon={logoIcon}></StyledLogo>
@@ -75,6 +81,12 @@ const Sidebar = ({ pageContext, logout, history }) => {
                     />
                 </li>
             </StyledLinksWrap>
+            <StyledToggle
+                onChange={() => themeToggler()}
+                checked={isDarkTheme}
+                speed={4}
+                size={80}
+            />
             <LogoutButtonIcon
                 onClick={() => {
                     logout(history);
@@ -88,7 +100,9 @@ const Sidebar = ({ pageContext, logout, history }) => {
 Sidebar.propTypes = {
     pageContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
     logout: PropTypes.func,
-    history: PropTypes.object
+    history: PropTypes.object,
+    themeToggler: PropTypes.func,
+    isDarkTheme: PropTypes.bool
 };
 
 Sidebar.deafultProps = {
