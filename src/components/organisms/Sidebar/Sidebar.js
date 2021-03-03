@@ -28,6 +28,7 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    transition: background-color 0.5s;
 `;
 
 const StyledLinksWrap = styled.ul`

@@ -21,9 +21,9 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-size: 1.6rem;
     font-family: 'Montserrat', sans-serif;
-    background: ${({ theme }) => theme.background};
+    background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
-    transition: background .5s;
+    transition: background-color .5s;
   }
 
   textarea, input {

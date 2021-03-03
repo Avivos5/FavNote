@@ -24,6 +24,7 @@ const InnerWrapper = styled.div`
     padding: 17px 30px;
     background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
     position: relative;
+    transition: background-color 0.5s;
 
     :first-of-type {
         z-index: 999;
