@@ -4,13 +4,7 @@ import PageContext from './../context';
 const withContext = (Component) => {
     return (props) => (
         <PageContext.Consumer>
-            {(pageContext) => (
-                <Component
-                    {...props}
-                    pageContext={pageContext.pageType}
-                    themeToggler={pageContext.themeToggler}
-                    isDarkTheme={pageContext.isDarkTheme}></Component>
-            )}
+            {(pageContext) => <Component {...props} pageContext={pageContext}></Component>}
         </PageContext.Consumer>
     );
 };

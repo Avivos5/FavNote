@@ -14,6 +14,7 @@ import logoIcon from '../../../assets/icons/logo.svg';
 import { connect } from 'react-redux';
 import { logout as logoutAction } from './../../../actions';
 import DarkModeToggle from 'react-dark-mode-toggle';
+import { ColorThemeContext } from 'theme/ColorTheme';
 
 const StyledWrapper = styled.div`
     position: fixed;
@@ -56,44 +57,56 @@ const StyledToggle = styled(DarkModeToggle)`
     margin-bottom: 20px;
 `;
 
-const Sidebar = ({ pageContext, logout, history, themeToggler, isDarkTheme }) => {
+const Sidebar = ({ pageContext, logout, history }) => {
     return (
-        <StyledWrapper activeColor={pageContext}>
-            <StyledLogo as={Link} to="/" icon={logoIcon}></StyledLogo>
-            <StyledLinksWrap>
-                <li>
-                    <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeclass="active" />
-                </li>
-                <li>
-                    <ButtonIcon
-                        as={NavLink}
-                        to="/twitters"
-                        icon={twitterIcon}
-                        activeclass="active"
-                    />
-                </li>
-                <li>
-                    <ButtonIcon
-                        as={NavLink}
-                        to="/articles"
-                        icon={bulbIcon}
-                        activeClassName="active"
-                    />
-                </li>
-            </StyledLinksWrap>
-            <StyledToggle
-                onChange={() => themeToggler()}
-                checked={isDarkTheme}
-                speed={4}
-                size={80}
-            />
-            <LogoutButtonIcon
-                onClick={() => {
-                    logout(history);
-                }}
-                icon={logoutIcon}
-            />
-        </StyledWrapper>
+        <ColorThemeContext.Consumer>
+            {({ theme, themeToggler, mountedComponent }) => {
+                if (!mountedComponent) return <div />;
+                return (
+                    <StyledWrapper activeColor={pageContext}>
+                        <StyledLogo as={Link} to="/" icon={logoIcon}></StyledLogo>
+                        <StyledLinksWrap>
+                            <li>
+                                <ButtonIcon
+                                    as={NavLink}
+                                    to="/notes"
+                                    icon={penIcon}
+                                    activeclass="active"
+                                />
+                            </li>
+                            <li>
+                                <ButtonIcon
+                                    as={NavLink}
+                                    to="/twitters"
+                                    icon={twitterIcon}
+                                    activeclass="active"
+                                />
+                            </li>
+                            <li>
+                                <ButtonIcon
+                                    as={NavLink}
+                                    to="/articles"
+                                    icon={bulbIcon}
+                                    activeClassName="active"
+                                />
+                            </li>
+                        </StyledLinksWrap>
+                        <StyledToggle
+                            onChange={() => themeToggler()}
+                            checked={theme === 'light' ? false : true}
+                            speed={5}
+                            size={80}
+                        />
+                        <LogoutButtonIcon
+                            onClick={() => {
+                                logout(history);
+                            }}
+                            icon={logoutIcon}
+                        />
+                    </StyledWrapper>
+                );
+            }}
+        </ColorThemeContext.Consumer>
     );
 };
 
