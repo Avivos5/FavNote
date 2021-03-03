@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
     top: 0;
     height: 100vh;
     width: 680px;
-    background-color: white;
+    background-color: ${({ theme }) => theme.background2};
     z-index: 9999;
     display: flex;
     flex-direction: column;

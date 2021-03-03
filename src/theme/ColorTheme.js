@@ -15,10 +15,7 @@ const ColorTheme = ({ children }) => {
 
     return (
         <ColorThemeContext.Provider value={{ theme, themeToggler, mountedComponent }}>
-            <ThemeProvider theme={themeMode}>
-                {/* <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}> */}
-                {children}
-            </ThemeProvider>
+            <ThemeProvider theme={themeMode}>{children}</ThemeProvider>
         </ColorThemeContext.Provider>
     );
 };

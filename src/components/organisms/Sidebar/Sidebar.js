@@ -100,6 +100,8 @@ const Sidebar = ({ pageContext, logout, history }) => {
                         <LogoutButtonIcon
                             onClick={() => {
                                 logout(history);
+                                window.localStorage.setItem('theme', 'dark');
+                                themeToggler();
                             }}
                             icon={logoutIcon}
                         />

@@ -42,6 +42,7 @@ const StyledLink = styled.a`
     text-transform: uppercase;
     text-decoration: underline;
     margin: 25px 0 0 0;
+    color: ${({ theme }) => theme.link};
 `;
 
 const StyledImage = styled.a`

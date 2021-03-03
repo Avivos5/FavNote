@@ -21,7 +21,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-size: 1.6rem;
     font-family: 'Montserrat', sans-serif;
-    background: ${({ theme }) => theme.body};
+    background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     transition: background .5s;
   }

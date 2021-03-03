@@ -13,8 +13,7 @@ import { removeItem as removeItemAction } from './../../../actions';
 
 const StyledWrapper = styled.div`
     min-height: 380px;
-    /* width: 500px; // do usunięcia */
-    box-shadow: 0 10px 30px -10px hsla(0, 0%, 0%, 0.1);
+    box-shadow: 0 10px 30px -10px ${({ theme }) => theme.shadow};
     border-radius: 10px;
     overflow: hidden;
     display: grid;
@@ -36,6 +35,7 @@ const InnerWrapper = styled.div`
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            background-color: ${({ theme }) => theme.background2};
         `}
 `;
 
