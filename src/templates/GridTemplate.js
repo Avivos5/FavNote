@@ -14,6 +14,14 @@ import NewItemBar from 'components/organisms/NewItemBar/NewItemBar';
 const StyledWrapper = styled.div`
     padding: 25px 150px 25px 70px;
     position: relative;
+
+    @media (max-width: 700px) {
+        padding: 25px 30px 25px 30px;
+    }
+
+    @media (max-width: 350px) {
+        padding: 25px 5px 25px 5px;
+    }
 `;
 
 const StyledGrid = styled.div`
