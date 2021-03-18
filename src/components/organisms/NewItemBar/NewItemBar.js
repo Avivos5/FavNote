@@ -17,44 +17,87 @@ const StyledWrapper = styled.div`
     height: 100vh;
     width: 680px;
     background-color: ${({ theme }) => theme.background2};
-    z-index: 9999;
+    z-index: 100000;
     display: flex;
     flex-direction: column;
     padding: 100px 50px;
     border-left: 10px solid ${({ theme, pageColor }) => theme[pageColor]};
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
     transform: translate(${({ isVisible }) => (isVisible ? '0' : '100%')});
-    transition: transform 0.2s ease-in-out;
-    transition: background-color 0.5s;
+    transition: transform 0.2s ease-in-out, background-color 0.5s;
+    overflow: scroll;
+
+    @media (max-width: 680px) {
+        width: 100vw;
+    }
+
+    @media (max-width: 475px) {
+        padding: 50px 10px;
+    }
+
+    @media (max-width: 360px) {
+        align-items: center;
+    }
 `;
 
 const StyledTextArea = styled(Input)`
     height: 30vh;
     margin: 30px 0 0;
     border-radius: 20px;
+    width: 100%;
 `;
 
 const StyledInput = styled(Input)`
     margin: 20px 0 0;
+
+    :first-of-type {
+        margin: 0;
+    }
+
+    @media (max-width: 360px) {
+        width: 100%;
+        height: 35px;
+        font-size: ${({ theme }) => theme.fontSize.xs};
+    }
 `;
 
 const StyledForm = styled.form`
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 360px) {
+        width: 85%;
+    }
 `;
 
 const ErrorMessage = styled.p`
     font-size: ${({ theme }) => theme.fontSize.s};
     margin: 5px 0 0 20px;
     color: red;
+
+    @media (max-width: 360px) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+        margin: 2px 0 0 10px;
+    }
 `;
 
 const StyledButton = styled(Button)`
     margin-top: 100px;
+
+    @media (max-height: 650px) {
+        margin: 30px auto 0;
+        width: 80%;
+        font-size: ${({ theme }) => theme.fontSize.xs};
+    }
 `;
 
 const StyledHeading = styled(Heading)`
     margin-bottom: 15px;
+
+    @media (max-width: 515px) {
+        text-align: center;
+        margin-bottom: 7px;
+    }
 `;
 
 const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
@@ -92,7 +135,7 @@ const NewItemBar = ({ pageContext, isVisible, addItem, closeNewItemBar }) => {
                 validationSchema={Yup.object().shape(validationShape)}>
                 {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => (
                     <StyledForm onSubmit={handleSubmit}>
-                        <Input
+                        <StyledInput
                             placeholder="title"
                             type="text"
                             name="title"

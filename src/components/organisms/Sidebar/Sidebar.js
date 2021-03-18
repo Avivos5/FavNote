@@ -30,7 +30,7 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: space-around;
     transition: background-color 0.5s;
-    z-index: 100000;
+    z-index: 99999;
 
     @media (max-width: 700px) {
         transform: translateX(${({ isOpened }) => (isOpened ? 0 : '-150px')});

@@ -64,7 +64,14 @@ const StyledButtonIcon = styled(ButtonIcon)`
     background-color: ${({ theme, activeColor }) => theme[activeColor]};
     transform: rotate(${({ isOpened }) => (isOpened ? '45deg' : '0')});
     transition: transform 0.2s ease-in-out;
-    z-index: 10000;
+    z-index: 100001;
+
+    @media (max-width: 700px) {
+        width: 45px;
+        height: 45px;
+        bottom: 20px;
+        right: 20px;
+    }
 `;
 
 class GridTemplate extends React.Component {
