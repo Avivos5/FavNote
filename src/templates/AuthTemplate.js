@@ -27,11 +27,19 @@ const StyledWrapper = styled.div`
     & > * {
         margin-bottom: 15px;
     }
+
+    @media (max-height: 650px) {
+        height: 650px;
+    }
 `;
 
 const StyledLogo = styled.img`
     width: 200px;
     height: auto;
+
+    @media (max-width: 550px) {
+        width: 125px;
+    }
 `;
 
 const AuthCard = styled.div`
@@ -45,6 +53,10 @@ const AuthCard = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 410px) {
+        width: 95vw;
+    }
 `;
 
 const StyledForm = styled(Form)`
@@ -52,15 +64,31 @@ const StyledForm = styled(Form)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 360px) {
+        width: 85%;
+    }
 `;
 
 const StyledInput = styled(Input)`
     margin: 0 0 30px 0;
     height: 40px;
     width: 300px;
+
+    @media (max-width: 360px) {
+        width: 100%;
+        height: 35px;
+    }
 `;
 
 const StyledHeading = styled(Heading)`
+    @media (max-width: 550px) {
+        font-size: ${({ theme }) => theme.fontSize.m};
+        text-align: center;
+    }
+`;
+
+const StyledFormHeading = styled(Heading)`
     margin-bottom: 25px;
 `;
 
@@ -71,6 +99,10 @@ const StyledLink = styled(Link)`
     color: black;
     text-transform: uppercase;
     margin: 30px 0 40px;
+
+    @media (max-width: 360px) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+    }
 `;
 
 const StyledParagraph = styled(Paragraph)`
@@ -80,6 +112,16 @@ const StyledParagraph = styled(Paragraph)`
     font-weight: ${({ theme }) => theme.bold};
     padding: 7.5px 15px;
     border-radius: 25px;
+    text-align: center;
+
+    @media (max-width: 440px) {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+        width: 85%;
+    }
+`;
+
+const StyledButton = styled(Button)`
+    width: 70%;
 `;
 
 class AuthTemplate extends Component {
@@ -109,7 +151,7 @@ class AuthTemplate extends Component {
         return (
             <StyledWrapper>
                 <StyledLogo src={logo} alt="FavNote logo" />
-                <Heading>Your new favorite online notes experience</Heading>
+                <StyledHeading>Your new favorite online notes experience</StyledHeading>
                 <AuthCard>
                     <Formik
                         initialValues={{ username: '', password: '' }}
@@ -129,13 +171,13 @@ class AuthTemplate extends Component {
                         }}>
                         {({ handleChange, handleBlur, values }) => {
                             if (userID) {
-                                return <Redirect to={routes.home} />; //żeby nie było teogo błędu podczas logowania z niezaładowanym pageContext, tutaj musi być routes.notes. Narazie zostawiam tak, ale warto to sprawdzić
+                                return <Redirect to={routes.home} />;
                             }
                             return (
                                 <>
-                                    <StyledHeading>
+                                    <StyledFormHeading>
                                         {authType === 'login' ? 'Sign in' : 'Registeration'}
-                                    </StyledHeading>
+                                    </StyledFormHeading>
                                     <StyledForm>
                                         <StyledInput
                                             placeholder="login"
@@ -153,13 +195,13 @@ class AuthTemplate extends Component {
                                             onBlur={handleBlur}
                                             value={values.password}
                                         />
-                                        <Button activeColor="notes" type="submit">
+                                        <StyledButton activeColor="notes" type="submit">
                                             {authType === 'login' ? 'Sign in' : 'Register'}
-                                        </Button>
+                                        </StyledButton>
                                     </StyledForm>
                                     <StyledLink
                                         to={routes[authType === 'login' ? 'register' : 'login']}>
-                                        I want to {authType === 'login' ? 'Register' : 'Login in'}
+                                        I want to {authType === 'login' ? 'Register' : 'Log in'}
                                     </StyledLink>
                                     {registerInfo && (
                                         <StyledParagraph>{registerInfo}</StyledParagraph>
