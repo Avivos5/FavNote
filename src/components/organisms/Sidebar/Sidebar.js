@@ -189,7 +189,9 @@ Sidebar.propTypes = {
     logout: PropTypes.func,
     history: PropTypes.object,
     themeToggler: PropTypes.func,
-    isDarkTheme: PropTypes.bool
+    isDarkTheme: PropTypes.bool,
+    isMobile: PropTypes.bool,
+    isMobileHeight: PropTypes.bool
 };
 
 Sidebar.deafultProps = {
