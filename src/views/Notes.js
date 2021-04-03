@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import Card from 'components/molecules/Card/Card';
 import GridTemplate from 'templates/GridTemplate';
 import { fetchItems } from 'actions';
+import { Redirect } from 'react-router-dom';
+import { routes } from 'routes/index';
 
 class Notes extends Component {
     componentDidMount() {
@@ -11,7 +13,10 @@ class Notes extends Component {
     }
 
     render() {
-        const { notes } = this.props;
+        const { notes, userID } = this.props;
+        if (!userID) {
+            return <Redirect to={routes.login} />;
+        }
         return (
             <GridTemplate itemsCount={notes.length}>
                 {notes.map(({ _id: id, title, content }) => (
@@ -30,14 +35,15 @@ Notes.propTypes = {
             content: PropTypes.string.isRequired
         })
     ),
-    fetchNotes: PropTypes.func
+    fetchNotes: PropTypes.func,
+    userID: PropTypes.string
 };
 
 Notes.defaultProps = {
     notes: []
 };
 
-const mapStateToProps = ({ notes }) => ({ notes });
+const mapStateToProps = ({ notes, userID = null }) => ({ notes, userID });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchNotes: () => dispatch(fetchItems('notes'))
