@@ -22,7 +22,7 @@ class DetailsPage extends Component {
             const { id } = this.props.match.params;
 
             axios
-                .get(`http://localhost:9000/api/note/${id}`)
+                .get(`https://polar-tundra-85645.herokuapp.com/api/note/${id}`)
                 .then(({ data }) => {
                     this.setState({ activeItem: data });
                 })

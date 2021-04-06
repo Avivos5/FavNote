@@ -21,7 +21,7 @@ export const removeItem = (itemType, id) => (dispatch) => {
     dispatch({ type: REMOVE_ITEM_REQUEST });
 
     axios
-        .delete(`http://localhost:9000/api/note/${id}`)
+        .delete(`https://polar-tundra-85645.herokuapp.com/api/note/${id}`)
         .then(() => {
             dispatch({
                 type: REMOVE_ITEM_SUCCES,
@@ -41,7 +41,7 @@ export const addItem = (itemType, itemContent) => (dispatch, getState) => {
     dispatch({ type: ADD_ITEM_REQUEST });
 
     axios
-        .post(`http://localhost:9000/api/note/`, {
+        .post(`https://polar-tundra-85645.herokuapp.com/api/note/`, {
             userID: getState().userID,
             type: itemType,
             ...itemContent
@@ -65,7 +65,7 @@ export const authenticate = (username, password) => (dispatch) => {
     dispatch({ type: AUTHENTICATE_REQUEST });
 
     axios
-        .post('http://localhost:9000/api/user/login', { username, password })
+        .post('https://polar-tundra-85645.herokuapp.com/api/user/login', { username, password })
         .then((payload) => {
             dispatch({ type: AUTHENTICATE_SUCCES, payload });
         })
@@ -79,7 +79,7 @@ export const fetchItems = (itemType) => (dispatch, getState) => {
     dispatch({ type: FETCH_REQUEST });
 
     axios
-        .get('http://localhost:9000/api/notes/type', {
+        .get('https://polar-tundra-85645.herokuapp.com/api/notes/type', {
             params: {
                 type: itemType,
                 userID: getState().userID
@@ -98,7 +98,7 @@ export const logout = (history) => (dispatch) => {
     dispatch({ type: LOGOUT_REQUEST });
 
     axios
-        .post('http://localhost:9000/api/user/logout')
+        .post('https://polar-tundra-85645.herokuapp.com/api/user/logout')
         .then(() => {
             dispatch({ type: LOGOUT_SUCCES });
             history.push('/login');

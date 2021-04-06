@@ -131,7 +131,10 @@ class AuthTemplate extends Component {
 
     registerServ = (username, password) => {
         axios
-            .post('http://localhost:9000/api/user/register', { username, password })
+            .post('https://polar-tundra-85645.herokuapp.com/api/user/register', {
+                username,
+                password
+            })
             .then(() => {
                 this.setState({
                     registerInfo: 'Registered, please log in.'
