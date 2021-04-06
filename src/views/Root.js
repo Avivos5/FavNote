@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'store';
-import MainTemplate from '../templates/MainTemplate';
+import MainTemplate from 'templates/MainTemplate';
 import Notes from 'views/Notes';
 import Articles from 'views/Articles';
 import Twitters from 'views/Twitters';
